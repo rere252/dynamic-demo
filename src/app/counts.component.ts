@@ -20,6 +20,8 @@ export class CountsComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    // There might exist different inputs and this callback is shared between them.
+    // It's preferable to react to only the particular changes that currently occured.
     const valueChange = changes['value'];
     if (valueChange) {
       this.valueControl.setValue(this.value);
