@@ -18,6 +18,11 @@ export class CountsComponent implements OnInit {
     this.updateBackgroundColor();
   }
 
+  /**
+   * I know this method could simply be replaced with a template expression.
+   * This is just for demo purposes. In a real app you could trigger network
+   * calls etc here instead.
+   */
   updateBackgroundColor() {
     const blue = '#ACE7FF';
     const green = '#E7FFAC';
