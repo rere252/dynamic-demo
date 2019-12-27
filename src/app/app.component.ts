@@ -4,13 +4,10 @@ import { CountsComponent } from './counts.component';
 @Component({
   selector: 'app-root',
   template: `
-    <counts [(value)]="count"></counts>
+    <counts [value]="count"></counts>
     <br />
-    <button (click)="addOne()">
-      Add one
-    </button>
-    <button (click)="addOneProgrammatically()">
-      Add one programmatically
+    <button (click)="incrementCount()">
+      Increment AppComponent count
     </button>
   `
 })
@@ -22,11 +19,7 @@ export class AppComponent {
     this.count = 1;
   }
 
-  addOne() {
+  incrementCount() {
     this.count += 1;
-  }
-
-  addOneProgrammatically() {
-    this.countsComponent.value += 1;
   }
 }

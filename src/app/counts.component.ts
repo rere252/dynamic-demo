@@ -1,30 +1,26 @@
-import { Component, ChangeDetectionStrategy, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, ChangeDetectionStrategy, Input, HostBinding, OnInit } from '@angular/core';
 
 @Component({
   selector: 'counts',
   template: `
-    <input type="number" [formControl]="valueControl" />
+    CountsComponent <br />
+    Value: {{ value }}
   `,
   // OnPush since we want our Angular apps to be performant +
   // it gives a chance to illustrate more problems.
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CountsComponent implements OnChanges {
+export class CountsComponent implements OnInit {
+  @HostBinding('style.background-color') backgroundColor: string;
   @Input() value: number;
-  public valueControl: FormControl;
 
-  constructor() {
-    this.valueControl = new FormControl();
-    this.valueControl.disable();
+  ngOnInit() {
+    this.updateBackgroundColor();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    // There might exist different inputs and this callback is shared between them.
-    // It's preferable to react to only the particular changes that currently occured.
-    const valueChange = changes['value'];
-    if (valueChange) {
-      this.valueControl.setValue(this.value);
-    }
+  updateBackgroundColor() {
+    const blue = '#ACE7FF';
+    const green = '#E7FFAC';
+    this.backgroundColor = this.value % 2 === 0 ? blue : green;
   }
 }
