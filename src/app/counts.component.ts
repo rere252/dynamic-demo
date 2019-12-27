@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -10,7 +10,7 @@ import { FormControl } from '@angular/forms';
   // it gives a chance to illustrate more problems.
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CountsComponent implements OnInit {
+export class CountsComponent implements OnChanges {
   @Input() value: number;
   public valueControl: FormControl;
 
@@ -19,8 +19,10 @@ export class CountsComponent implements OnInit {
     this.valueControl.disable();
   }
 
-  // If an input value was provided then it's now ready for use.
-  ngOnInit() {
-    this.valueControl.setValue(this.value);
+  ngOnChanges(changes: SimpleChanges) {
+    const valueChange = changes['value'];
+    if (valueChange) {
+      this.valueControl.setValue(this.value);
+    }
   }
 }
