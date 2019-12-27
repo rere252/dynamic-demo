@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { CountsComponent } from './counts.component';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +12,6 @@ import { CountsComponent } from './counts.component';
 })
 export class AppComponent {
   public count: number;
-  @ViewChild(CountsComponent, { static: false }) countsComponent: CountsComponent;
 
   constructor() {
     this.count = 1;
