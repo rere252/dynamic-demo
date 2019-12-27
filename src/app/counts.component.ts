@@ -15,6 +15,7 @@ export class CountsComponent implements OnInit {
   @Input() value: number;
 
   ngOnInit() {
+    // @Input() value has now been assigned, update the background color.
     this.updateBackgroundColor();
   }
 
