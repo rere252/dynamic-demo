@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, HostBinding, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, HostBinding, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'counts',
@@ -10,13 +10,19 @@ import { Component, ChangeDetectionStrategy, Input, HostBinding, OnInit } from '
   // it gives a chance to illustrate more problems.
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CountsComponent implements OnInit {
+export class CountsComponent implements OnChanges {
   @HostBinding('style.background-color') backgroundColor: string;
   @Input() value: number;
 
-  ngOnInit() {
-    // @Input() value has now been assigned, update the background color.
-    this.updateBackgroundColor();
+  ngOnChanges(changes: SimpleChanges) {
+    // In a real app there could potentially exist multiple @Input() properties
+    // and they all share the same lifecycle hook. Ideally you'd want to pick out
+    // the individual property changes and only react to changes that actually happened.
+    const valueChange = changes['value'];
+    // If no change occured then valueChanges will be undefined.
+    if (valueChange) {
+      this.updateBackgroundColor();
+    }
   }
 
   /**
