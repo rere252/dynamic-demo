@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'values',
+  selector: 'counts',
   template: `
     <input type="number" [formControl]="valueControl" />
   `,
@@ -10,7 +10,7 @@ import { FormControl } from '@angular/forms';
   // it gives a chance to illustrate more problems.
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ValuesComponent implements OnInit {
+export class CountsComponent implements OnInit {
   @Input() value: number;
   public valueControl: FormControl;
 

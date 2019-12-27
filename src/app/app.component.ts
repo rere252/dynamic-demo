@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-    <values [value]="value"></values>
+    <counts [value]="count"></counts>
     <br />
     <button (click)="addOne()">
       Add one
@@ -11,13 +11,13 @@ import { Component } from '@angular/core';
   `
 })
 export class AppComponent {
-  public value: number;
+  public count: number;
 
   constructor() {
-    this.value = 1;
+    this.count = 1;
   }
 
   addOne() {
-    this.value += 1;
+    this.count += 1;
   }
 }
