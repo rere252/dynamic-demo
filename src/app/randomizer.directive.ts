@@ -30,6 +30,6 @@ export class RandomizerDirective implements OnDestroy {
   }
 
   ngOnDestroy() {
-    clearTimeout(this.randomizer);
+    clearInterval(this.randomizer);
   }
 }
