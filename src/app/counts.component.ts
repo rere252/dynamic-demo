@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, HostBinding, ChangeDetectorRef } from '@angular/core';
+import { Dynamic } from './dynamic.decorator';
 
 @Component({
   selector: 'counts',
@@ -13,26 +14,8 @@ import { Component, ChangeDetectionStrategy, Input, HostBinding, ChangeDetectorR
 })
 export class CountsComponent {
   @HostBinding('style.background-color') backgroundColor: string;
-  private _value: number;
-  @Input() set value(newValue: number) {
-    if (this._value != newValue) {
-      this._value = newValue;
-      this.onValueChange();
-    }
-  }
-  get value() {
-    return this._value;
-  }
-  private _random: number;
-  @Input() set random(newRandom: number) {
-    if (this._random != newRandom) {
-      this._random = newRandom;
-      this.onRandomChange();
-    }
-  }
-  get random() {
-    return this._random;
-  }
+  @Input() @Dynamic<CountsComponent>('onValueChange') value: number;
+  @Input() @Dynamic<CountsComponent>('onRandomChange') random: number;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
@@ -56,7 +39,9 @@ export class CountsComponent {
     this.backgroundColor = this.value % 2 === 0 ? blue : green;
   }
 
-  onRandomChange() {
+  // Previous and current values are provided if you want to use them.
+  onRandomChange(previousValue: number, newValue: number) {
+    console.log(`previousValue: ${previousValue}; newValue: ${newValue}`);
     this.cdr.markForCheck();
   }
 }
