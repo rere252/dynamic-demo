@@ -4,7 +4,7 @@ import { CountsComponent } from './counts.component';
 @Component({
   selector: 'app-root',
   template: `
-    <counts [value]="count"></counts>
+    <counts [value]="count" randomizer></counts>
     <br />
     <button (click)="incrementCount()">
       Increment AppComponent count
