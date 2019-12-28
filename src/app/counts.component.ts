@@ -4,7 +4,8 @@ import { Component, ChangeDetectionStrategy, Input, HostBinding, ChangeDetectorR
   selector: 'counts',
   template: `
     CountsComponent <br />
-    Value: {{ value }}
+    Value: {{ value }} <br />
+    Random: {{ random }}
   `,
   // OnPush since we want our Angular apps to be performant +
   // it gives a chance to illustrate more problems.
@@ -22,6 +23,7 @@ export class CountsComponent {
   get value() {
     return this._value;
   }
+  @Input() random: string;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
