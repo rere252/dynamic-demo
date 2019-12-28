@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, HostBinding, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, HostBinding, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'counts',
@@ -10,19 +10,28 @@ import { Component, ChangeDetectionStrategy, Input, HostBinding, OnChanges, Simp
   // it gives a chance to illustrate more problems.
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CountsComponent implements OnChanges {
+export class CountsComponent {
   @HostBinding('style.background-color') backgroundColor: string;
-  @Input() value: number;
-
-  ngOnChanges(changes: SimpleChanges) {
-    // In a real app there could potentially exist multiple @Input() properties
-    // and they all share the same lifecycle hook. Ideally you'd want to pick out
-    // the individual property changes and only react to changes that actually happened.
-    const valueChange = changes['value'];
-    // If no change occured then valueChanges will be undefined.
-    if (valueChange) {
-      this.updateBackgroundColor();
+  private _value: number;
+  @Input() set value(newValue: number) {
+    if (this._value != newValue) {
+      this._value = newValue;
+      this.onValueChanged();
     }
+  }
+  get value() {
+    return this._value;
+  }
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  onValueChanged() {
+    // Since @HostBinding() for background color is used, the background
+    // color would update without manually triggering the change detection.
+    this.updateBackgroundColor();
+    // In order to update the value displayed in the component we still
+    // need to manually request change detection.
+    this.cdr.markForCheck();
   }
 
   /**
