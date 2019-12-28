@@ -17,17 +17,26 @@ export class CountsComponent {
   @Input() set value(newValue: number) {
     if (this._value != newValue) {
       this._value = newValue;
-      this.onValueChanged();
+      this.onValueChange();
     }
   }
   get value() {
     return this._value;
   }
-  @Input() random: string;
+  private _random: number;
+  @Input() set random(newRandom: number) {
+    if (this._random != newRandom) {
+      this._random = newRandom;
+      this.onRandomChange();
+    }
+  }
+  get random() {
+    return this._random;
+  }
 
   constructor(private cdr: ChangeDetectorRef) {}
 
-  onValueChanged() {
+  onValueChange() {
     // Since @HostBinding() for background color is used, the background
     // color would update without manually triggering the change detection.
     this.updateBackgroundColor();
@@ -45,5 +54,9 @@ export class CountsComponent {
     const blue = '#ACE7FF';
     const green = '#E7FFAC';
     this.backgroundColor = this.value % 2 === 0 ? blue : green;
+  }
+
+  onRandomChange() {
+    this.cdr.markForCheck();
   }
 }
