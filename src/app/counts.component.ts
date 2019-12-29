@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, HostBinding, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, HostBinding } from '@angular/core';
 import { Dynamic } from './dynamic.decorator';
 
 @Component({
