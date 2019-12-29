@@ -15,17 +15,12 @@ import { Dynamic } from './dynamic.decorator';
 export class CountsComponent {
   @HostBinding('style.background-color') backgroundColor: string;
   @Input() @Dynamic<CountsComponent>('onValueChange') value: number;
-  @Input() @Dynamic<CountsComponent>('onRandomChange') random: number;
-
-  constructor(private cdr: ChangeDetectorRef) {}
+  @Input() @Dynamic<CountsComponent>() random: number;
 
   onValueChange() {
     // Since @HostBinding() for background color is used, the background
     // color would update without manually triggering the change detection.
     this.updateBackgroundColor();
-    // In order to update the value displayed in the component we still
-    // need to manually request change detection.
-    this.cdr.markForCheck();
   }
 
   /**
@@ -37,11 +32,5 @@ export class CountsComponent {
     const blue = '#ACE7FF';
     const green = '#E7FFAC';
     this.backgroundColor = this.value % 2 === 0 ? blue : green;
-  }
-
-  // Previous and current values are provided if you want to use them.
-  onRandomChange(previousValue: number, newValue: number) {
-    console.log(`previousValue: ${previousValue}; newValue: ${newValue}`);
-    this.cdr.markForCheck();
   }
 }
